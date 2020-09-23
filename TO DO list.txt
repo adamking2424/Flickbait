@@ -1,0 +1,16 @@
+
+
+background.js
+
+__Thumbnails
+Need to check for all the other image types when redirecting.
+Need to add error check for 404, and general error checks within the functions.
+Need to look at norefresh token.
+
+__Loading youtube.js
+Need to work out when to send message to youtube.js
+Need to look at seperating the youtube.js file and sending message to different file dependant on the youtube page thats being shown
+
+
+
+

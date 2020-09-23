@@ -46,7 +46,7 @@ chrome.runtime.onInstalled.addListener(function() {
       console.log('foreachtab', tab);
         chrome.tabs.executeScript(tab.id, {file: 'js/youtube.js'}, function () {
           console.log("This is being called");
-            chrome.tabs.sendMessage(tab.id,"meessa");
+          chrome.tabs.sendMessage(tab.id,"meessa");
         });
     })
 });
