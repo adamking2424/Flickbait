@@ -33,27 +33,24 @@ chrome.runtime.onInstalled.addListener(function() {
   setupThumbnailRedirectors();
 
   function setupThumbnailRedirectors () {
-    chrome.webRequest.onBeforeRequest.addListener(redirectListener, filter,opt_extraInfoSpec);
+    chrome.webRequest.onBeforeRequest.addListener(redirectListener, filter, opt_extraInfoSpec);
   }
 
   chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete' && tab.active) {
       if (tab.url.includes('subscriptions')) {
         console.log(new Date().getTime() + '  ' + 'executing youtube_sub.js');
-        executeScript(tabId, 'js/youtube_sub.js', 'youtube_sub.js init');
+        chrome.tabs.executeScript(tab.id, {file: 'js/youtube_sub.js'});
       } else if (tab.url.includes('watch?')) {
-        executeScript(tabId, 'js/youtube_vid.js', 'youtube_vid.js init');
+        chrome.tabs.executeScript(tab.id, {file: 'js/youtube_vid.js'});
       } else {
         console.log(new Date().getTime() + '  ' + 'executing youtube_home.js');
-        executeScript(tabId, {
-          file: 'js/youtube_home.js',
-          runAt: 'document_start'  //TODO need to check if this is actually helping 
-      }, 'youtube_home.js FIN');
+        chrome.tabs.executeScript(tab.id, {file: 'js/youtube_home.js'});
       }
     }
   });
 
-  function executeScript (tabId, options, message) {
+  function executeScriptt (tabId, options, message) {
     chrome.tabs.executeScript(tabId, options, function () {
       console.log(message);
     });
