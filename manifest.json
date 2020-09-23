@@ -8,20 +8,9 @@
     "tabs",
     "webRequest",
     "webRequestBlocking",
+    "webNavigation",
     "*://www.youtube.com/*",
     "<all_urls>"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "*://i.ytimg.com/*",
-        "*://www.youtube.com/*",
-        "*://m.youtube.com/*"
-      ],
-      "js": [
-        "js/youtube.js"
-      ]
-    }
   ],
   "background": {
     "scripts": ["js/background.js"],
