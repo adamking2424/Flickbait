@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      button {
-        height: 30px;
-        width: 30px;
-        outline: none;
-      }
-    </style>
+    <link rel="stylesheet" href="extension.css">
   </head>
   <body>
-    <button id="changeColor"></button>
+    <div class="excontainer">
+      <div class="optionsContainer">
+        <span id="spanText">Replace Thumbnails</span>
+        <button id="replaceThumbnails"></button>
+      </div>
+      <div class="optionsContainer">
+        <span>Do Something else</span>
+        <input type="checkbox">
+      </div>
+    </div>
+    <script src="js/ui_controller.js"></script>
   </body>
 </html>

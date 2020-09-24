@@ -16,7 +16,13 @@
     "scripts": ["js/background.js"],
     "persistent": true
   },
-  
+  "content_scripts": [
+    {
+        "matches": ["*://www.youtube.com/*"],
+        "js":["libs/jquery-3.5.1.slim.js"],
+        "css": ["extension.css"]
+    }
+],
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {

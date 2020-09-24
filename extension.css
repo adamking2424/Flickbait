@@ -1,0 +1,16 @@
+button {
+  color: #00ffff;
+}
+
+.excontainer {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row;
+  height: 200px;
+  width: 200px;
+}
+
+.switch {
+  display: flex;
+  flex-flow: row;
+}

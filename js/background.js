@@ -9,6 +9,10 @@ chrome.runtime.onInstalled.addListener(function() {
 
   });
 
+  
+
+
+ 
   let redirectListener = function (details) {
     details.url = details.url.replace(/(default|hqdefault|mqdefault|sddefault|hq720).jpg/, preferredThumbnailFile);
     return {redirectUrl: details.url};
@@ -37,6 +41,7 @@ chrome.runtime.onInstalled.addListener(function() {
   }
 
   chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
+
     if (changeInfo.status == 'complete' && tab.active) {
       if (tab.url.includes('subscriptions')) {
         console.log(new Date().getTime() + '  ' + 'executing youtube_sub.js');
@@ -50,9 +55,15 @@ chrome.runtime.onInstalled.addListener(function() {
     }
   });
 
-  function executeScriptt (tabId, options, message) {
-    chrome.tabs.executeScript(tabId, options, function () {
-      console.log(message);
-    });
-  }
+
+  //This is so that the UI shows when on youtube.com. Might want to change it so it always shows.
+  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+    chrome.declarativeContent.onPageChanged.addRules([{
+      conditions: [new chrome.declarativeContent.PageStateMatcher({
+        pageUrl: {hostEquals: 'www.youtube.com'},
+      })
+      ],
+        actions: [new chrome.declarativeContent.ShowPageAction()]
+    }]);
+  });
 });
