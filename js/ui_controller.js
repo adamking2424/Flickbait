@@ -1,8 +1,10 @@
 
+
+
 document.getElementById("replaceThumbnails").addEventListener('click', () => {
   console.log("Popup DOM fully loaded and parsed");
 
-  
+
   function modifyDOM() {
       //You can play with your DOM here or check URL against your regex
       console.log('Tab script:');
