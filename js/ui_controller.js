@@ -36,7 +36,7 @@ function openTab (tabname) {
 
 
 function initUI () {
-    let elementArr = ['replaceThumbnail', 'titleCaps', 'clickbaitRating'];
+    let elementArr = ['replaceThumbnail', 'titleCaps', 'clickbaitRating', 'hideClickbait'];
     for (let i = 0; i < elementArr.length; i++) {
         setCheckboxValues(elementArr[i]);
         onElementClicked(elementArr[i]);

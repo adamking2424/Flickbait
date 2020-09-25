@@ -38,7 +38,7 @@ chrome.runtime.onInstalled.addListener(function() {
 
 
 function setupStorage () {
-  let optionsArr = ['replaceThumbnail', 'titleCaps', 'clickbaitRating'];
+  let optionsArr = ['replaceThumbnail', 'titleCaps', 'clickbaitRating', 'hideClickbait'];
   for(let i = 0; i < optionsArr.length; i++) {
     setDefaultStorage(optionsArr[i])
   }
@@ -52,8 +52,6 @@ function setDefaultStorage (storageName) {
     }
   });
 }
-
-
 
 function setupThumbnailRedirectors () {
   let redirectListener = function (details) {

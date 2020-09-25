@@ -11,6 +11,14 @@ chrome.storage.sync.get('titleCaps', function(result) {
 
 
 function setupHTML() {
+
+  //TESTING
+  let contentElement = document.getElementById('contents');
+  console.log(contentElement);
+  contentElement.childNodes[0].parentNode.removeChild(contentElement.childNodes[0]);
+  //TESTING
+
+
   let elements = document.getElementsByClassName('style-scope ytd-rich-grid-media');
   for (let x = 0; x < elements.length; x++) {
     if (elements[x].id === 'details') {
@@ -32,10 +40,26 @@ function addOptionsListeners () {
       switch (key) {
         case 'titleCaps': {
           storageChange.newValue ? setupCSS() : removeCSS();
+          break;
+        }
+        case 'hideClickbait': {
+          storageChange.newValue ? removeClickbait() : returnClickbait();
+          break;
         }
       }
     }
   });
+}
+
+let oldContent = null;
+function removeClickbait () {
+  console.log('removeClickbait');
+  oldContent = document.getElementById('contents');
+  document.getElementById('contents').removeChild(oldContent.childNodes[0]);
+}
+
+function returnClickbait () {
+  console.log('returnClickbait');
 }
 
 function removeCSS () {
