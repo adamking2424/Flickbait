@@ -4,7 +4,21 @@ let error404Listener = null;
 let preferredThumbnailFile = 'hq1.jpg';
 let noRedirectToken = 'zctf420otaqimwn9lx8m';
 
+
+
+
+
 chrome.runtime.onInstalled.addListener(function() {
+  
+ 
+  chrome.storage.sync.get('thumnailFile', function(result) {
+    if (!result) {
+      chrome.storage.sync.set({thumbnailFile: 'hq1.jpg'}, function() {
+      });
+    } else {
+      preferredThumbnailFile = result.thumbnailFile;
+    }
+  });
 
   setupThumbnailRedirectors();
   setupStorage();

@@ -1,11 +1,13 @@
 console.log('youtube_vid.js');
 buildVoteUI();
 
-//TODO need to clean this up, dont think it should creeate element then have to search for the same one.
-//TODO need to probs convert all to jQuery
+
+// Need to get the channel URL from the ui, as the url doesnt always hold the correct link !
+// console.log('location ', location);
+// let channel = location.href.split('ab_channel=').pop();
+// console.log(channel);
+
 function buildVoteUI () {
-  //let titleContainerElement = document.getElementsByTagName('ytd-video-primary-info-renderer')[0];
-  //console.log(titleContainerElement.childNodes[1].childNodes[3]);
   $("h1").append('<div align="right" width="40%"><button id=12>up</button><span id=13>1</span><button id=14>down</button></div>');
   let counterSpan = document.getElementById('13');
   document.getElementById('12').addEventListener('click',function(){
@@ -22,8 +24,6 @@ function buildVoteUI () {
     console.log("video clicked!");
   })
   
-
-
 
   
   //THIS IS FOR CHECKING IF VIDEO IS PLAYING!!
