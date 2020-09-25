@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="extension.css">
+    <link rel="stylesheet" href="./extension.css">
   </head>
   <body>
     <div class="excontainer">
       <div class="optionsContainer">
         <span id="spanText">Replace Thumbnails</span>
-        <button id="replaceThumbnails"></button>
+        <label class="switch">
+          <input type="checkbox" id="replaceThumbnail">
+          <span class="slider round"></span>
+        </label>
       </div>
       <div class="optionsContainer">
         <span>Do Something else</span>
-        <input type="checkbox">
+        <label class="switch">
+          <input type="checkbox" id="titleCaps">
+          <span class="slider round"></span>
+        </label>
       </div>
     </div>
-    
-
-<script src="js/ui_controller.js"></script>
+    <script src="js/ui_controller.js"></script>
   </body>
 </html>

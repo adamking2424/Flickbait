@@ -12,6 +12,7 @@ function buildVoteUI () {
     console.log('upvoting');
     counterSpan.innerHTML = Number(counterSpan.innerHTML) + 1;
   });
+
   document.getElementById('14').addEventListener('click',function(){
     console.log('downvoting');
     counterSpan.innerHTML = Number(counterSpan.innerHTML) - 1;
@@ -21,6 +22,11 @@ function buildVoteUI () {
     console.log("video clicked!");
   })
   
+
+
+
+  
+  //THIS IS FOR CHECKING IF VIDEO IS PLAYING!!
 
   //TODO need to add a listener to the title property of the element
   let playButton = document.getElementsByClassName('ytp-play-button ytp-button')[0];
