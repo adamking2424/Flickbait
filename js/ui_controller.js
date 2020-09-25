@@ -2,7 +2,7 @@ initTabs();
 initUI();
 
 function initTabs () {
-    document.getElementById('clickbaitContainer').style.display = "block";
+    document.getElementById('clickbaitContainer').style.display = "flex";
 
     document.getElementById('clickbaitTab').addEventListener('click', (event) => {
         openTab('clickbaitContainer');
@@ -12,11 +12,11 @@ function initTabs () {
     })
 }
 
-function openTab (tabname) {
-    
-    
-    var i, tabcontent, tablinks;
 
+
+function openTab (tabname) {
+      
+  var i, tabcontent, tablinks;
   // Get all elements with class="tabcontent" and hide them
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -30,10 +30,9 @@ function openTab (tabname) {
   }
 
   // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(tabname).style.display = "block";
+  document.getElementById(tabname).style.display = "flex";
   //evt.currentTarget.className += " active";
 }
-
 
 
 function initUI () {
