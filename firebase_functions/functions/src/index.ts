@@ -14,6 +14,19 @@ export const getOneVote = functions.https.onRequest(async (request,response) => 
   }
 });
 
+//Example request body
+//{"channel_ids":[{"channel_id":"jfjfjf"}, {"channel_id":"jfjf"}]}
+export const getAllVotes = functions.https.onRequest(async (request, response) => {
+  try { 
+    const connection = await connect();
+    const channelRepo = connection.getRepository(ChannelVotes);
+    let returnVal = await channelRepo.find({where: request.body.channel_ids});
+    response.send(returnVal);
+  } catch (error) {
+    response.send(error);
+  }
+})
+
 export const sendVote = functions.https.onRequest(async (request, response) => {
   const { channel_id, upvoted } = request.body;
   const channelVotes = new ChannelVotes();
