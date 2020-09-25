@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, Unique } from 'typeorm';
 
 
 @Entity()
+@Unique(["channel_id"])
 export class ChannelVotes extends BaseEntity {
 
     @PrimaryGeneratedColumn()

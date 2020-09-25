@@ -14,3 +14,7 @@ Need to look at seperating the youtube.js file and sending message to different 
 
 
 
+Run Firebase Deploy:
+npm run deploy  
+
+
