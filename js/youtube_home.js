@@ -7,7 +7,7 @@ addOptionsListeners();
 function setInitialOptions(optionsArr) {
   for (let i = 0; i < optionsArr.length; i++) {
     chrome.storage.sync.get(optionsArr[i], function (result) {
-      if (result[optionsArr[i]]) setOptions(result[optionsArr[i]], optionsArr[i]);
+      if (result[optionsArr[i]]) setOptions(optionsArr[i],result[optionsArr[i]]);
     })
   }
 }
@@ -75,12 +75,14 @@ function returnClickbait () {
 }
 
 function addCaps () {
+  console.log('addCaps');
   if (styleElement) {
     styleElement.parentNode.removeChild(styleElement);
   }
 }
 
 function removeCaps() {
+  console.log('removeCaps');
   styleElement = document.createElement('style');
   styleElement.innerHTML = `
     #video-title{
