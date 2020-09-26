@@ -1,8 +1,33 @@
-
 console.log('youtube.js');
+
+
+//Need to get all channelIds
+//Send all channel Ids to getReq
+//For each result need to add a button!
+
+getAllChannelIds();
+
+function getAllChannelIds () {
+
+  //byline-container id of 
+  
+  let channelElements = document.getElementsByClassName('style-scope ytd-channel-name complex-string');
+  for (let i = 0; i < channelElements.length; i++) {
+    let channelName = channelElements[i].childNodes[0].href.split('/').pop();
+    let node = document.createElement('button');  
+    node.className = 'voteButton true'
+    let textnode = document.createTextNode("Hello wow");  
+    node.appendChild(textnode);
+    let locationNode = channelElements[i].parentNode.parentNode.parentNode.parentNode.parentNode;
+    locationNode.insertBefore(node, locationNode.childNodes[2]);
+  }
+}
+
+
 let styleElement = null;
 setInitialOptions(['replaceThumbnail', 'titleCaps', 'clickbaitRating', 'hideClickbait']);
 addOptionsListeners();
+
 
 function setInitialOptions(optionsArr) {
   for (let i = 0; i < optionsArr.length; i++) {
@@ -19,6 +44,7 @@ function setupHTML() {
   console.log(contentElement);
   contentElement.childNodes[0].parentNode.removeChild(contentElement.childNodes[0]);
   //TESTING
+
 
 
    let elements = document.getElementsByClassName('style-scope ytd-rich-grid-media');

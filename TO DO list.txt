@@ -20,6 +20,10 @@ https://miro.medium.com/max/1400/1*iGlxXLLBo7g1pZ8mzb_egQ.png
 
 
 
+YoutubeHome -> Send request for all ratings of videos, from an array of chann
+
+
+
 
 Run Firebase Deploy:
 npm run deploy  
