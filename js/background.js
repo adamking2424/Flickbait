@@ -12,10 +12,11 @@ chrome.runtime.onInstalled.addListener(function() {
   
  
   chrome.storage.sync.get('thumnailFile', function(result) {
-    if (!result) {
+    if (result !== null | undefined && Object.keys(result).length === 0 && result.constructor === Object) {
       chrome.storage.sync.set({thumbnailFile: 'hq1.jpg'}, function() {
       });
     } else {
+      
       preferredThumbnailFile = result.thumbnailFile;
     }
   });

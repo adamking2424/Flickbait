@@ -8,7 +8,7 @@ buildVoteUI();
 // console.log(channel);
 
 function buildVoteUI () {
-  $("h1").append('<div align="right" width="40%"><button id=12>up</button><span id=13>1</span><button id=14>down</button></div>');
+  $("h1").append('<div align="right" width="40%"><button id=12 class="voteButton true">Truth</button><span id=13>1</span><button id=14 class="voteButton false">Clickbait</button></div>');
   let counterSpan = document.getElementById('13');
   document.getElementById('12').addEventListener('click',function(){
     console.log('upvoting');

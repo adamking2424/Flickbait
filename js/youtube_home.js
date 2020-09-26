@@ -1,14 +1,16 @@
 
 console.log('youtube.js');
-
 let styleElement = null;
-setupHTML();
+setInitialOptions(['replaceThumbnail', 'titleCaps', 'clickbaitRating', 'hideClickbait']);
 addOptionsListeners();
-chrome.storage.sync.get('titleCaps', function(result) {
-  console.log("CAPS OFF IS", result);
-  if (result.titleCaps) setupCSS();
-});
 
+function setInitialOptions(optionsArr) {
+  for (let i = 0; i < optionsArr.length; i++) {
+    chrome.storage.sync.get(optionsArr[i], function (result) {
+      if (result[optionsArr[i]]) setOptions(result[optionsArr[i]], optionsArr[i]);
+    })
+  }
+}
 
 function setupHTML() {
 
@@ -19,36 +21,46 @@ function setupHTML() {
   //TESTING
 
 
-  let elements = document.getElementsByClassName('style-scope ytd-rich-grid-media');
-  for (let x = 0; x < elements.length; x++) {
-    if (elements[x].id === 'details') {
-      let node = document.createElement("P");  
-      let textnode = document.createTextNode("Hello wow");  
-      node.appendChild(textnode);
-      let metaElement = elements[x].childNodes[1];
-      metaElement.appendChild(node);
-      elements[x].childNodes[1].childNodes[0].childNodes[1].childNodes[0].innerHTML = "WOWOWOWOWOWOWOWOWOWOWWO WOWOWOWOWOWOWWOWOWO WOWOWOWOWWOWOWOWOWOW WOWOWOWOWOWWO";
-    }
-  }  
-}
+   let elements = document.getElementsByClassName('style-scope ytd-rich-grid-media');
+   for (let x = 0; x < elements.length; x++) {
+     if (elements[x].id === 'details') {
+       let node = document.createElement("P");  
+       let textnode = document.createTextNode("Hello wow");  
+       node.appendChild(textnode);
+       let metaElement = elements[x].childNodes[1];
+       metaElement.appendChild(node);
+       elements[x].childNodes[1].childNodes[0].childNodes[1].childNodes[0].innerHTML = "WOWOWOWOWOWOWOWOWOWOWWO WOWOWOWOWOWOWWOWOWO WOWOWOWOWWOWOWOWOWOW WOWOWOWOWOWWO";
+     }
+   }   
+ }
 
 //OPTIONS ARE key, namespace, storageChange.oldValue, storageChange.newValue
 function addOptionsListeners () {
   chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (var key in changes) {
       var storageChange = changes[key];
-      switch (key) {
-        case 'titleCaps': {
-          storageChange.newValue ? setupCSS() : removeCSS();
-          break;
-        }
-        case 'hideClickbait': {
-          storageChange.newValue ? removeClickbait() : returnClickbait();
-          break;
-        }
-      }
+      setOptions(key, storageChange.newValue);
     }
   });
+}
+
+function setOptions(storageItem, value) {
+  switch(storageItem) {
+    case 'replaceThumbnail': {
+      break;
+    }
+    case 'titleCaps': {
+      value ? removeCaps() : addCaps();
+      break;
+    }
+    case 'clickbaitRating': {
+      break;
+    }
+    case 'hideClickbait': {
+      value ? removeClickbait() : returnClickbait();
+      break;
+    }
+  }
 }
 
 let oldContent = null;
@@ -62,15 +74,13 @@ function returnClickbait () {
   console.log('returnClickbait');
 }
 
-function removeCSS () {
+function addCaps () {
   if (styleElement) {
     styleElement.parentNode.removeChild(styleElement);
   }
 }
 
-
-
-function setupCSS() {
+function removeCaps() {
   styleElement = document.createElement('style');
   styleElement.innerHTML = `
     #video-title{

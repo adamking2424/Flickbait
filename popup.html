@@ -4,7 +4,16 @@
     <link rel="stylesheet" href="./extension.css">
   </head>
   <body>
-    <div class="excontainer">
+    <div class="tab">
+      <button class="tablinks" id="clickbaitTab" style="display: block;">Clickbait</button>
+      <button class="tablinks" id="statsTab" >Statistics</button>
+    </div>
+
+    <div class="tabcontent" id="statsContainer" style="display: none;">
+      <centre><span>HEY HEY</span></centre>
+    </div>
+
+    <div class="tabcontent" id="clickbaitContainer" style="display: flex;">
       <div class="optionsContainer">
         <span id="spanText">Replace Thumbnails</span>
         <label class="switch">
@@ -13,9 +22,23 @@
         </label>
       </div>
       <div class="optionsContainer">
-        <span>Do Something else</span>
+        <span>Remove title caps</span>
         <label class="switch">
           <input type="checkbox" id="titleCaps">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <div class="optionsContainer">
+        <span>Hide Clickbait rating</span>
+        <label class="switch">
+          <input type="checkbox" id="clickbaitRating">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <div class="optionsContainer">
+        <span>Hide Clickbait videos</span>
+        <label class="switch">
+          <input type="checkbox" id="hideClickbait">
           <span class="slider round"></span>
         </label>
       </div>
