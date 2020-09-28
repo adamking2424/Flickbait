@@ -7,22 +7,48 @@ buildVoteUI();
 // let channel = location.href.split('ab_channel=').pop();
 // console.log(channel);
 
+
 function buildVoteUI () {
-  $("h1").append('<div align="right" width="40%"><button id=12 class="voteButton true">Truth</button><span id=13>1</span><button id=14 class="voteButton false">Clickbait</button></div>');
-  let counterSpan = document.getElementById('13');
+  let alreadyVoted = false;
+
+  let channelLink = document.getElementsByClassName('yt-simple-endpoint style-scope ytd-video-owner-renderer')[0].href;
+  let channelName = channelLink.split('/channel/').pop();
+  $("h1").append('<div align="right" height="400px" width="40%"><button id=12 class="voteButton true">Truth ⬆ 0</button><button id=14 class="voteButton false">Clickbait ⬇ 0</button></div>');
+  getVotes(channelName);
+
   document.getElementById('12').addEventListener('click',function(){
-    console.log('upvoting');
-    counterSpan.innerHTML = Number(counterSpan.innerHTML) + 1;
+     console.log('upvoting');
+     if (!alreadyVoted) {
+       voteButtonClicked(channelName, true);
+       alreadyVoted = true;
+     }
   });
-
   document.getElementById('14').addEventListener('click',function(){
-    console.log('downvoting');
-    counterSpan.innerHTML = Number(counterSpan.innerHTML) - 1;
+      console.log('downvoting');
+      if (!alreadyVoted) {
+        voteButtonClicked(channelName, false);
+        alreadyVoted = true;
+      }
   });
 
-  document.getElementById("primary-inner").addEventListener('click', function () {
-    console.log("video clicked!");
-  })
+ // $("h1").append('<div align="right" height="400px" width="40%"><button id=12 class="voteButton true">Truth ⬆ 212</button><button id=14 class="voteButton false">Clickbait ⬇ 10</button></div>');
+ 
+ 
+
+
+
+
+  // document.getElementById('14').addEventListener('click',function(){
+  //   console.log('downvoting');
+  //   if (!alreadyVoted) {
+  //     voteButtonClicked(channelName, false);
+  //     alreadyVoted = true;
+  //   }
+  // });
+
+  // document.getElementById("primary-inner").addEventListener('click', function () {
+  //   console.log("video clicked!");
+  // })
   
 
   
@@ -55,6 +81,41 @@ observer.disconnect();
 
   
 }
+
+function getVotes (channelId) {
+  chrome.runtime.sendMessage({type:"getOneVote", data:{channel_id:channelId}}, function(response) {
+    console.log('DB RESPONSE: getOneVote', response);
+    if (response.length) {
+      document.getElementById('12').innerHTML = 'Truth ⬆ ' + String(response[0].upvotes);
+      document.getElementById('14').innerHTML = 'Clickbait ⬇ ' + String(response[0].downvotes);
+    } 
+  });
+}
+
+//{type:"sendVote", data: {channel_id:"bla", upvoted:true}};
+function voteButtonClicked(channelId, upvoted) {
+  increaseVoteValue(upvoted);
+
+  chrome.runtime.sendMessage({type:"sendVote", data:{channel_id:channelId, upvoted:upvoted}}, function(response) {
+    console.log('DB RESPONSE: Added vote', response);
+  
+  });
+}
+
+
+function increaseVoteValue (upvoted) {
+  if (upvoted) {
+    let button = document.getElementById('12');
+    let currentVote = button.innerHTML.split('⬆ ').pop().trim();
+    button.innerHTML = 'Truth ⬆ ' + (Number(currentVote) + 1);
+  } else {
+    let button = document.getElementById('14');
+    let currentVote = button.innerHTML.split('⬇ ').pop().trim();
+    console.log(currentVote);
+    button.innerHTML = 'Clickbait ⬇ ' + (Number(currentVote) - 1);
+  }
+}
+
 
 
 

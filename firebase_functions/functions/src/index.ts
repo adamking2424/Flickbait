@@ -7,7 +7,7 @@ export const getOneVote = functions.https.onRequest(async (request,response) => 
   try {
     const connection = await connect();
     const channelRepo = connection.getRepository(ChannelVotes);
-    const allChanels = await channelRepo.find({where:{channel_id:request.body.channel_id}});
+    const allChanels = await channelRepo.find({where:{channel_id:request.body.data.channel_id}});
     response.send(allChanels);
   } catch (error){
     response.send(error);
@@ -20,7 +20,7 @@ export const getAllVotes = functions.https.onRequest(async (request, response) =
   try { 
     const connection = await connect();
     const channelRepo = connection.getRepository(ChannelVotes);
-    let returnVal = await channelRepo.find({where: request.body.channel_ids});
+    let returnVal = await channelRepo.find({where: request.body.data});
     response.set('Access-Control-Allow-Origin', '*');
  
 
@@ -39,8 +39,11 @@ export const getAllVotes = functions.https.onRequest(async (request, response) =
   }
 })
 
+
+//Always receive {type:"sendVote", data: {channel_id:"bla", upvoted:true}};
 export const sendVote = functions.https.onRequest(async (request, response) => {
-  const { channel_id, upvoted } = request.body;
+
+  const { channel_id, upvoted } = request.body.data;
   const channelVotes = new ChannelVotes();
   channelVotes.channel_id = channel_id;
   let upvoteCount = 0;

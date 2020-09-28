@@ -52,8 +52,38 @@ function setupStorage () {
   for(let i = 0; i < optionsArr.length; i++) {
     setDefaultStorage(optionsArr[i])
   }
+  // "channel_ids":[{"channel_id":"jfjfjf"}, {"channel_id":"jfjf"}]
+  //postData('https://us-central1-flickbait-f3667.cloudfunctions.net/getAllVotes', {channel_ids:[{channel_id:"jfjfjf"}]});
 }
 
+async function postData(url = '', data) {
+
+  return await fetch(url, {
+    method: 'POST', 
+    // no-cors, *cors, same-origin
+
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data) 
+  }).then(response => response.json().then((data) => data));
+
+  
+}
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log('sending response');
+    console.log(request);
+    let response = postData('https://us-central1-flickbait-f3667.cloudfunctions.net/' + request.type, request);
+    response.then(data => {
+      console.log('data', data);
+      sendResponse(data);
+    });
+    return true;
+  });
+
+  
 
 function setDefaultStorage (storageName) {
   chrome.storage.sync.get(storageName, function(result) {

@@ -60,22 +60,33 @@ function getAllVotes(channelNameArr) {
   }, channelObjArr)
 
   console.log('channelObjArr', channelObjArr);
-  //{channel_ids: channelObjArr}
-  postData('https://us-central1-flickbait-f3667.cloudfunctions.net/getAllVotes', {channel_ids:[{channel_id:"jfjfjf"}]});
+  sendMessageToBackground(channelObjArr);
 
 }
 
-// Example POST method implementation:
 
-async function postData(url = '', data) {
-  const response = await fetch(url, {
-    method: 'POST', 
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data) 
-  }).then(response => console.log(response));
+function sendMessageToBackground (channelObjArr) {
+  console.log('sending message to background script');
+  chrome.runtime.sendMessage({type:"getAllVotes", data:channelObjArr}, function(response) {
+    console.log('DB RESPONSE: ', response);
+    addClickbaitFlags(response);
+  });
 }
+
+
+function addClickbaitFlags (data) {
+  data.forEach(item => {
+    if (item.downvotes > item.upvotes) {
+      document.getElementById(item.channel_id).className = 'voteButton false';
+    } else {
+      document.getElementById(item.channel_id).className = 'voteButton false';
+    }
+  })
+}
+
+
+
+
 
 
 
