@@ -4,19 +4,14 @@ let error404Listener = null;
 let preferredThumbnailFile = 'hq1.jpg';
 let noRedirectToken = 'zctf420otaqimwn9lx8m';
 
-
-
-
-
 chrome.runtime.onInstalled.addListener(function() {
   
- 
   chrome.storage.sync.get('thumnailFile', function(result) {
+
     if (result !== null | undefined && Object.keys(result).length === 0 && result.constructor === Object) {
       chrome.storage.sync.set({thumbnailFile: 'hq1.jpg'}, function() {
       });
     } else {
-      
       preferredThumbnailFile = result.thumbnailFile;
     }
   });
@@ -58,6 +53,7 @@ function setupStorage () {
     setDefaultStorage(optionsArr[i])
   }
 }
+
 
 function setDefaultStorage (storageName) {
   chrome.storage.sync.get(storageName, function(result) {

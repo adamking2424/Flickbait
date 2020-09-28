@@ -5,23 +5,78 @@ console.log('youtube.js');
 //Send all channel Ids to getReq
 //For each result need to add a button!
 
-getAllChannelIds();
+
 
 function getAllChannelIds () {
 
   //byline-container id of 
   
   let channelElements = document.getElementsByClassName('style-scope ytd-channel-name complex-string');
+  let channelNameArr = [];
   for (let i = 0; i < channelElements.length; i++) {
     let channelName = channelElements[i].childNodes[0].href.split('/').pop();
+    channelNameArr.push(channelName);
     let node = document.createElement('button');  
     node.className = 'voteButton true'
-    let textnode = document.createTextNode("Hello wow");  
+    node.id = channelName;
+    let textnode = document.createTextNode(`Not clickbait 👏 `);  
     node.appendChild(textnode);
     let locationNode = channelElements[i].parentNode.parentNode.parentNode.parentNode.parentNode;
     locationNode.insertBefore(node, locationNode.childNodes[2]);
   }
+  getAllVotes(channelNameArr);
 }
+
+function removeClickbaitHTML () {
+  let channelElements = document.getElementsByClassName('style-scope ytd-channel-name complex-string');
+  for (let i = 0; i < channelElements.length; i++) {
+    let channelName = channelElements[i].childNodes[0].href.split('/').pop();
+    if (document.getElementById(channelName)) {
+      removeElement(channelName);
+    }
+  }
+}
+
+function addClickbaitHTML () {
+  console.log('adding clickbait html');
+  getAllChannelIds();
+}
+
+function removeElement(id) {
+  var elem = document.getElementById(id);
+  return elem.parentNode.removeChild(elem);
+}
+
+
+
+function getAllVotes(channelNameArr) {
+  console.log('gettingAllVotes');
+  
+  //{"channel_ids":[{"channel_id":"jfjfjf"}, {"channel_id":"jfjf"}]}
+  let channelObjArr = [];
+ 
+  channelObjArr = channelNameArr.reduce((accumulator, currentValue) => {
+    return accumulator = [...accumulator, {channel_id:currentValue}]
+  }, channelObjArr)
+
+  console.log('channelObjArr', channelObjArr);
+  //{channel_ids: channelObjArr}
+  postData('https://us-central1-flickbait-f3667.cloudfunctions.net/getAllVotes', {channel_ids:[{channel_id:"jfjfjf"}]});
+
+}
+
+// Example POST method implementation:
+
+async function postData(url = '', data) {
+  const response = await fetch(url, {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data) 
+  }).then(response => console.log(response));
+}
+
 
 
 let styleElement = null;
@@ -80,6 +135,8 @@ function setOptions(storageItem, value) {
       break;
     }
     case 'clickbaitRating': {
+      console.log(storageItem);
+      value ? addClickbaitHTML(): removeClickbaitHTML();
       break;
     }
     case 'hideClickbait': {

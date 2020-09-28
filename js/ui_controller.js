@@ -12,8 +12,6 @@ function initTabs () {
     })
 }
 
-
-
 function openTab (tabname) {
       
   var i, tabcontent, tablinks;
@@ -33,7 +31,6 @@ function openTab (tabname) {
   document.getElementById(tabname).style.display = "flex";
   //evt.currentTarget.className += " active";
 }
-
 
 function initUI () {
     let elementArr = ['replaceThumbnail', 'titleCaps', 'clickbaitRating', 'hideClickbait'];
