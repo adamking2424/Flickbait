@@ -7,7 +7,7 @@ export const getOneVote = functions.https.onRequest(async (request,response) => 
   try {
     const connection = await connect();
     const channelRepo = connection.getRepository(ChannelVotes);
-    const allChanels = await channelRepo.find({where:{channel_id:request.body.data.channel_id}});
+    const allChanels = await channelRepo.find({where:{video_id:request.body.data.video_id}});
     response.send(allChanels);
   } catch (error){
     response.send(error);
@@ -43,9 +43,9 @@ export const getAllVotes = functions.https.onRequest(async (request, response) =
 //Always receive {type:"sendVote", data: {channel_id:"bla", upvoted:true}};
 export const sendVote = functions.https.onRequest(async (request, response) => {
 
-  const { channel_id, upvoted } = request.body.data;
+  const { video_id, upvoted } = request.body.data;
   const channelVotes = new ChannelVotes();
-  channelVotes.channel_id = channel_id;
+  channelVotes.video_id = video_id;
   let upvoteCount = 0;
   let downvoteCount = 0;
   upvoted ? upvoteCount++ : downvoteCount++;
@@ -53,8 +53,8 @@ export const sendVote = functions.https.onRequest(async (request, response) => {
   channelVotes.downvotes = downvoteCount;
   let voteToBeUpdated = upvoted ? "upvotes" : "downvotes";
   let sendQuery = `
-    INSERT INTO channel_votes (channel_id, upvotes, downvotes)
-    VALUES ('${channel_id}',${channelVotes.upvotes},${channelVotes.downvotes}) 
+    INSERT INTO channel_votes (video_id, upvotes, downvotes)
+    VALUES ('${video_id}',${channelVotes.upvotes},${channelVotes.downvotes}) 
     ON DUPLICATE KEY UPDATE ${voteToBeUpdated} = ${voteToBeUpdated} + 1`;
 
   try {

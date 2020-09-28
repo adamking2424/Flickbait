@@ -2,14 +2,14 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, Unique } from 'type
 
 
 @Entity()
-@Unique(["channel_id"])
+@Unique(["video_id"])
 export class ChannelVotes extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    channel_id: string;
+    video_id: string;
 
     @Column()
     upvotes: number;
