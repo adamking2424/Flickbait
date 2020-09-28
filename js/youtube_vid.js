@@ -1,6 +1,6 @@
 console.log('youtube_vid.js');
 buildVoteUI();
-addSidebarRatings();
+
 
 
 // Need to get the channel URL from the ui, as the url doesnt always hold the correct link !
@@ -31,7 +31,7 @@ function buildVoteUI () {
       }
   });
 
-  
+  addSidebarRatings();
  /*  //THIS IS FOR CHECKING IF VIDEO IS PLAYING!!
 
   //TODO need to add a listener to the title property of the element
