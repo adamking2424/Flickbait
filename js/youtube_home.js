@@ -27,6 +27,7 @@ function getAllChannelIds () {
   getAllVotes(channelNameArr);
 }
 
+
 function removeClickbaitHTML () {
   let channelElements = document.getElementsByClassName('style-scope ytd-channel-name complex-string');
   for (let i = 0; i < channelElements.length; i++) {
@@ -36,7 +37,6 @@ function removeClickbaitHTML () {
     }
   }
 }
-
 function addClickbaitHTML () {
   console.log('adding clickbait html');
   getAllChannelIds();
@@ -50,9 +50,6 @@ function removeElement(id) {
 
 
 function getAllVotes(channelNameArr) {
-  console.log('gettingAllVotes');
-  
-  //{"channel_ids":[{"channel_id":"jfjfjf"}, {"channel_id":"jfjf"}]}
   let channelObjArr = [];
  
   channelObjArr = channelNameArr.reduce((accumulator, currentValue) => {
